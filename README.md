@@ -26,9 +26,9 @@ MATTRAB/
 │   ├── lane_cooccurrence_metrics.txt 
 │
 ├── plots/  
-│   ├── grafo_bipartido.png
-│   ├── grafo_similaridade_alunos.png
-│   └── grafo_coocorrencia_lanes.png
+│   ├── BipGraph.png
+│   ├── StudentSimGraph.png
+│   └── LaneCoocGraph.png
 │   
 ├── AnalyseLanes.py 
 │
