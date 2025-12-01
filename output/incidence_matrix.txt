@@ -1,0 +1,15 @@
+            MID  Top  Jg  Sup  ADC
+Allan         1    1   0    0    0
+Fante         1    0   0    0    0
+Forconi       0    0   0    0    1
+Guerra        0    0   1    1    0
+Gui           1    0   0    0    0
+Ingvar        0    1   0    1    0
+Isaque        1    0   1    0    0
+JP Messias    1    0   0    0    1
+Julia         0    0   0    1    0
+Miguel        0    1   1    1    0
+Renan         0    1   1    0    0
+Veloso        1    0   0    0    0
+Vicente       0    1   0    0    0
+Zé            0    0   1    0    0

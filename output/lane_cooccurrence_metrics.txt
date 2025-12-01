@@ -1,0 +1,6 @@
+     degree  strength  betweenness  closeness  eigenvector  clustering
+MID       3       3.0          3.0      0.889        0.487       0.333
+Top       3       5.0          1.0      1.000        1.000       0.667
+Jg        3       5.0          1.0      1.000        1.000       0.667
+Sup       2       4.0          0.0      0.800        0.923       1.000
+ADC       1       1.0          0.0      0.533        0.112       0.000

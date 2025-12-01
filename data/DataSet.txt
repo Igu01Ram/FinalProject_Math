@@ -1,0 +1,38 @@
+DataSet_LOL - Melhores lanes 
+
+MID
+
+Allan
+JP Messias
+Isaque
+Veloso
+Fante 
+Gui
+
+Top
+
+Allan
+Renan
+Ingvar
+Miguel
+Vicente
+
+Jg
+
+Renan
+Isaque
+Miguel
+Zé
+Guerra
+
+Sup
+
+Ingvar
+Julia
+Miguel
+Guerra
+
+ADC
+
+Forconi
+JP Messias
