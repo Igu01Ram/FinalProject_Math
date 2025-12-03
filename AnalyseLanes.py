@@ -9,11 +9,11 @@ DATA = BASE / "data" / "DataSet.txt"
 OUTPUT = BASE / "output"
 PLOTS = BASE / "plots"
 
-# Quando roda o projeto os arquivos txt gerados serão salvos na pasta OUTPUT
+# Quando rodamos o projeto, os arquivos txt gerados serão salvos na pasta OUTPUT
 for d in (OUTPUT,):
     d.mkdir(parents=True, exist_ok=True)
 
-# Utilizando o contexto do DataSet criado a partir de uma enquente do whatsapp no grupo da sala
+# usando o contexto do DataSet criado a partir de uma enquente do whatsapp no grupo da sala
 lines = [ln.strip() for ln in DATA.read_text(encoding="utf-8").splitlines() if ln.strip()]
 # Cabeçalhos previstos para padronização
 lane_headers = ["MID", "Top", "Jg", "Sup", "ADC"]
@@ -31,7 +31,7 @@ for ln in lines:
 students = sorted({name for names in dataset.values() for name in names})
 lanes = lane_headers
 
-# Aqui ocorre a geraçao da matriz de incidencia 
+# Aqui ocorre a geraçao da matriz de incidencia, onde cada lane escolhida terá o valor 1 e 0 para a que não escolheu. Aluno X Lane
 incidence = pd.DataFrame(0, index=students, columns=lanes, dtype=int)
 for lane, names in dataset.items():
     for name in names:
@@ -40,7 +40,7 @@ for lane, names in dataset.items():
 # As saídas são salva em txt
 (OUTPUT/"incidence_matrix.txt").write_text(incidence.to_string(), encoding="utf-8")
 
-# Gerando a matriz de similaridade 
+# Aqui a geraçao a matriz de similaridade, definindo maior peso em suas escolhas de acordo com o valor (mais proximo de 1 = mais peso). Aluno X Aluno
 def jaccard(a,b):
     a = np.array(a, dtype=bool)
     b = np.array(b, dtype=bool)
@@ -59,7 +59,7 @@ for i,s1 in enumerate(students):
 # Novamente salvando em TXT mas dessa vez a de similaridade
 (OUTPUT/"student_similarity_jaccard.txt").write_text(sim.round(3).to_string(), encoding="utf-8")
 
-# Gerando matriz de coocorrencia 
+# Matriz de coocorrencia, sendo que o valor 0 na matriz diz que ngm joga as duas lanes ao mesmo tempo. Demais valores indicam a qtd de alunos que marcaram a mesma opção de rota. Lane x Lane
 cooc = pd.DataFrame(0, index=lanes, columns=lanes, dtype=int)
 for i,l1 in enumerate(lanes):
     for j,l2 in enumerate(lanes):
@@ -112,7 +112,7 @@ for i,l1 in enumerate(lanes):
 g_co.add_edges(co_edges)
 g_co.es["weight"] = co_weights
 
-# Cálculo das metricas 
+# Cálculo das metricas (analisar os vertices de acordo com o peso, quantidade de vertices vizinhos etc)
 def compute_metrics(g, weight_attr=None):
     df = pd.DataFrame(index=g.vs["name"])
     df["degree"] = g.degree()
@@ -122,12 +122,16 @@ def compute_metrics(g, weight_attr=None):
         df["strength"] = df["degree"]
     if g.ecount()>0 and weight_attr:
         distances = [1.0/w if w>0 else 1.0 for w in g.es[weight_attr]]
+        # Quantas vezes um vertice aparece no "caminho mais curto" entre outros dois vértices.
         df["betweenness"] = g.betweenness(weights=distances)
+        # O quao perto um vertice está de todos os outros do grafo.
         df["closeness"] = g.closeness(weights=distances)
     else:
         df["betweenness"] = g.betweenness()
         df["closeness"] = g.closeness()
+    # O quao importante o vertice é, considerando também a importância dos vizinhos.    
     df["eigenvector"] = g.eigenvector_centrality(weights=(g.es[weight_attr] if weight_attr and g.ecount()>0 else None))
+    # O quanto os vizinhos de um vertice também são vizinhos entre si.
     df["clustering"] = g.transitivity_local_undirected(mode="zero")
     return df
 
